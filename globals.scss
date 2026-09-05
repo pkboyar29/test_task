@@ -1,13 +1,8 @@
-// TODO: add some variables
-// TODO: import some font. can take fonts from next/font/google
+@use './variables.scss' as v;
 
 // reset styles
-// TODO: do I have #root, .App?
-html,
-body,
-#root,
-.App {
-  height: 100%;
+html {
+  background: v.$color-background;
 }
 
 * {

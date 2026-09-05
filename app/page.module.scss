@@ -1,0 +1,24 @@
+.page {
+  height: 100%;
+}
+
+.main {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 72px 0 90px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+// TODO: delete
+@media (max-width: 720px) {
+  .main {
+    width: min(100% - 28px, 520px);
+    padding-top: 44px;
+  }
+}
