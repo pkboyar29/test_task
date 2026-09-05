@@ -5,9 +5,7 @@ import styles from './page.module.scss';
 export default async function Home() {
   // TODO: вынести в функцию
   // TODO: хранить в rtk
-  const res = await fetch(
-    'https://maxifoxy-testfront-96b4.twc1.net/api/products',
-  );
+  const res = await fetch('https://maxifoxy-testfront-96b4.twc1.net/api/products');
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }

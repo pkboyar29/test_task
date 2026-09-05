@@ -19,21 +19,16 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [isInCart, setIsInCart] = useState(false);
 
   const labels = Object.entries(product.labels);
-  const hasDiscount =
-    product.price_discount > 0 && product.price_discount < product.price;
+  const hasDiscount = product.price_discount > 0 && product.price_discount < product.price;
 
   return (
     <article className={styles.card}>
       <div className={styles.card__visual}>
-        {product.available ? (
-          <span className={styles.card__availability}>В наличии</span>
-        ) : null}
+        {product.available ? <span className={styles.card__availability}>В наличии</span> : null}
         <button
           className={`${styles.card__favorite} ${isFavorite ? styles['card__favorite--active'] : ''}`}
           type="button"
-          aria-label={
-            isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'
-          }
+          aria-label={isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'}
           aria-pressed={isFavorite}
           onClick={() => setIsFavorite((current) => !current)}
         >
@@ -46,7 +41,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             className={styles.card__image}
             src={product.preview_picture}
             // TODO: что-то отображать, если изображения по пути нету
-            // alt={product.name}
+            alt=""
           />
         ) : (
           <div className={styles.card__imagePlaceholder}>Нет изображения</div>
@@ -72,14 +67,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className={styles.card__footer}>
           <div className={styles.card__prices}>
             <strong className={styles.card__price}>
-              {priceFormatter.format(
-                hasDiscount ? product.price_discount : product.price,
-              )}
+              {priceFormatter.format(hasDiscount ? product.price_discount : product.price)}
             </strong>
             {hasDiscount ? (
-              <del className={styles.card__oldPrice}>
-                {priceFormatter.format(product.price)}
-              </del>
+              <del className={styles.card__oldPrice}>{priceFormatter.format(product.price)}</del>
             ) : null}
           </div>
 

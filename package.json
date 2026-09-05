@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "types": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "16.3.4",
@@ -14,12 +18,14 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "sass": "^1.104.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.3.4",
+    "husky": "^9.1.7",
+    "prettier": "^3.9.6",
+    "sass": "^1.104.0",
     "typescript": "^5",
     "typescript-eslint": "^8.69.0"
   }
