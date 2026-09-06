@@ -1,5 +1,6 @@
 import { IProduct } from '@/types/IProduct';
 
+// TODO: вынести в .env
 const PRODUCT_API_URL = 'https://maxifoxy-testfront-96b4.twc1.net/api/products';
 
 export async function fetchProducts(): Promise<IProduct[]> {

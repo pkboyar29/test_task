@@ -1,12 +1,13 @@
+@use '../../variables.scss' as v;
 // TODO: добавить большинство цветов в переменные?
 
 .card {
   flex: 0 0 calc(25% - 20px);
   overflow: hidden;
-  border: 1px solid #e7e4de;
+  border: 1px solid v.$color-border;
   border-radius: 18px;
   background: #fff;
-  color: #1e2925;
+  color: v.$color-black;
   box-shadow: 0 10px 30px rgba(35, 51, 43, 0.06);
   transition:
     transform 180ms ease,
@@ -58,7 +59,7 @@
     &--active {
       cursor: pointer;
       background: #fff0ed;
-      color: #dd5c4c;
+      color: v.$color-accent;
     }
   }
 
@@ -149,7 +150,7 @@
   &__cart {
     padding: 11px 14px;
     border-radius: 10px;
-    background: #1e2925;
+    background: v.$color-black;
     color: #fff;
     font-size: 12px;
     font-weight: 700;
@@ -159,7 +160,7 @@
 
     &:hover:not(:disabled) {
       cursor: pointer;
-      background: #dd5c4c;
+      background: v.$color-accent;
       transform: translateY(-1px);
     }
 

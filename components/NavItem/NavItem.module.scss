@@ -1,0 +1,43 @@
+@use '../../variables.scss' as v;
+
+.navItem {
+  display: flex;
+  align-items: center;
+
+  &__link {
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    color: v.$color-black;
+    font-size: 14px;
+    font-weight: 600;
+    transition:
+      background 150ms ease,
+      color 150ms ease,
+      transform 150ms ease;
+
+    &:hover {
+      background: #f4f1e9;
+      color: v.$color-accent;
+      transform: translateY(-1px);
+    }
+  }
+
+  &__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: v.$color-black;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+  }
+}
