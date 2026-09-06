@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import '../globals.scss';
+import StoreProvider from '@/components/StoreProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -8,13 +9,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html
-      lang="en"
-      // {`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      className=""
-    >
-      {/* min-h-full flex flex-col */}
-      <body className="">{children}</body>
+    <html lang="en">
+      <body>
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   );
 }

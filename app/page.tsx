@@ -1,15 +1,9 @@
-import { IProduct } from '@/types/IProduct';
 import ProductCard from '@/components/ProductCard/ProductCard';
+import { fetchProducts } from '@/api/products';
 import styles from './page.module.scss';
 
 export default async function Home() {
-  // TODO: вынести в функцию
-  // TODO: хранить в rtk
-  const res = await fetch('https://maxifoxy-testfront-96b4.twc1.net/api/products');
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const products: IProduct[] = (await res.json()).items;
+  const products = await fetchProducts();
 
   return (
     <div className={styles.page}>
