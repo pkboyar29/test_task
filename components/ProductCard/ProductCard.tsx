@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { IProduct } from '@/types/IProduct';
 import styles from './ProductCard.module.scss';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import { addFavorite, removeFavorite } from '@/store/slices/favoritesSlice';
 
 interface ProductCardProps {
   product: IProduct;
@@ -15,22 +17,34 @@ const priceFormatter = new Intl.NumberFormat('ru-RU', {
 });
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
 
   const labels = Object.entries(product.labels);
   const hasDiscount = product.price_discount > 0 && product.price_discount < product.price;
 
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector((state) => state.favorites.data);
+  const isFavorite = favorites.some((favorite) => favorite.id === product.id);
+
+  const handleFavoriteClick = () => {
+    if (isFavorite) {
+      dispatch(removeFavorite(product.id));
+    } else {
+      dispatch(addFavorite(product));
+    }
+  };
+
   return (
     <article className={styles.card}>
       <div className={styles.card__visual}>
         {product.available ? <span className={styles.card__availability}>В наличии</span> : null}
+
         <button
           className={`${styles.card__favorite} ${isFavorite ? styles['card__favorite--active'] : ''}`}
           type="button"
           aria-label={isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'}
           aria-pressed={isFavorite}
-          onClick={() => setIsFavorite((current) => !current)}
+          onClick={handleFavoriteClick}
         >
           {isFavorite ? '♥' : '♡'}
         </button>

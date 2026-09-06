@@ -4,9 +4,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import NavItem from '../NavItem/NavItem';
 import styles from './Header.module.scss';
+import { useAppSelector } from '@/store/store';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const favorites = useAppSelector((state) => state.favorites.data);
 
   return (
     <header className={styles.header}>
@@ -37,7 +40,7 @@ export default function Header() {
           <ul className={styles.header__list}>
             <NavItem href="/" label="Товары" />
             <NavItem href="/cart" label="Корзина" count={3} />
-            <NavItem href="/favorites" label="Избранное" count={7} />
+            <NavItem href="/favorites" label="Избранное" count={favorites.length} />
           </ul>
         </nav>
       </div>
