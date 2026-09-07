@@ -1,15 +1,16 @@
 'use client';
 
-import { useState } from 'react';
 import { IProduct } from '@/types/IProduct';
 import styles from './ProductCard.module.scss';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { addFavorite, removeFavorite } from '@/store/slices/favoritesSlice';
+import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 
 interface ProductCardProps {
   product: IProduct;
 }
 
+// TODO: вынести в хелпер
 const priceFormatter = new Intl.NumberFormat('ru-RU', {
   style: 'currency',
   currency: 'RUB',
@@ -17,20 +18,29 @@ const priceFormatter = new Intl.NumberFormat('ru-RU', {
 });
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const [isInCart, setIsInCart] = useState(false);
-
   const labels = Object.entries(product.labels);
   const hasDiscount = product.price_discount > 0 && product.price_discount < product.price;
 
   const dispatch = useAppDispatch();
   const favorites = useAppSelector((state) => state.favorites.data);
+  const cartItems = useAppSelector((state) => state.cart.data);
+
   const isFavorite = favorites.some((favorite) => favorite.id === product.id);
+  const isInCart = cartItems.some(({ product: cartProduct }) => cartProduct.id === product.id);
 
   const handleFavoriteClick = () => {
     if (isFavorite) {
       dispatch(removeFavorite(product.id));
     } else {
       dispatch(addFavorite(product));
+    }
+  };
+
+  const handleCartClick = () => {
+    if (isInCart) {
+      dispatch(removeFromCart(product.id));
+    } else {
+      dispatch(addToCart(product));
     }
   };
 
@@ -92,7 +102,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             className={`${styles.card__cart} ${isInCart ? styles['card__cart--active'] : ''}`}
             type="button"
             disabled={!product.available}
-            onClick={() => setIsInCart((current) => !current)}
+            onClick={handleCartClick}
           >
             {isInCart ? 'В корзине' : 'В корзину'}
           </button>

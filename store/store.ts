@@ -1,9 +1,11 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import favoritesReducer from './slices/favoritesSlice';
+import cartReducer from './slices/cartSlice';
 
 const rootReducer = combineReducers({
   favorites: favoritesReducer,
+  cart: cartReducer,
 });
 
 export const store = configureStore({

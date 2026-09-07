@@ -10,6 +10,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const favorites = useAppSelector((state) => state.favorites.data);
+  const cartItems = useAppSelector((state) => state.cart.data);
 
   return (
     <header className={styles.header}>
@@ -39,7 +40,7 @@ export default function Header() {
         >
           <ul className={styles.header__list}>
             <NavItem href="/" label="Товары" />
-            <NavItem href="/cart" label="Корзина" count={3} />
+            <NavItem href="/cart" label="Корзина" count={cartItems.length} />
             <NavItem href="/favorites" label="Избранное" count={favorites.length} />
           </ul>
         </nav>
