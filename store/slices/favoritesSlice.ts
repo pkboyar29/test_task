@@ -3,10 +3,12 @@ import { IProduct } from '@/types/IProduct';
 
 interface FavoritesState {
   data: IProduct[];
+  status: 'idle' | 'ready';
 }
 
 const initialState: FavoritesState = {
   data: [],
+  status: 'idle',
 };
 
 const favoritesSlice = createSlice({
@@ -26,8 +28,12 @@ const favoritesSlice = createSlice({
     setFavorites(state, action: PayloadAction<IProduct[]>) {
       state.data = action.payload;
     },
+    setFavoritesReady(state) {
+      state.status = 'ready';
+    },
   },
 });
 
-export const { addFavorite, removeFavorite, setFavorites } = favoritesSlice.actions;
+export const { addFavorite, removeFavorite, setFavorites, setFavoritesReady } =
+  favoritesSlice.actions;
 export default favoritesSlice.reducer;

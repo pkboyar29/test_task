@@ -1,8 +1,8 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { setFavorites } from '@/store/slices/favoritesSlice';
+import { setFavorites, setFavoritesReady } from '@/store/slices/favoritesSlice';
 import { store, useAppDispatch, useAppSelector } from '@/store/store';
 import { isProductValid } from '@/helpers/isProductValid';
 
@@ -10,8 +10,7 @@ const FAVORITES_LS_KEY = 'favorites';
 
 function FavoritesPersistence() {
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector((state) => state.favorites.data);
-  const [isRestored, setIsRestored] = useState(false);
+  const { data: favorites, status } = useAppSelector((state) => state.favorites);
 
   useEffect(() => {
     try {
@@ -26,17 +25,17 @@ function FavoritesPersistence() {
     } catch {
       localStorage.removeItem(FAVORITES_LS_KEY);
     } finally {
-      setIsRestored(true);
+      dispatch(setFavoritesReady());
     }
   }, [dispatch]);
 
   useEffect(() => {
-    if (!isRestored) {
+    if (status === 'idle') {
       return;
     }
 
     localStorage.setItem(FAVORITES_LS_KEY, JSON.stringify(favorites));
-  }, [isRestored, favorites]);
+  }, [status, favorites]);
 
   return null;
 }

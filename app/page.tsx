@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <div className={styles.cards}>
+        <div className="cards">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

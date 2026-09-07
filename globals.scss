@@ -103,3 +103,25 @@ h6 {
 * {
   box-sizing: border-box;
 }
+
+// global styles
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0 10px;
+  justify-content: center;
+}
+
+@media (min-width: v.$lg) {
+  .cards {
+    gap: 20px;
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: v.$xl) {
+  .cards {
+    justify-content: start;
+  }
+}

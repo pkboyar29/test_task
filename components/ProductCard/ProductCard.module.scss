@@ -1,8 +1,7 @@
 @use '../../variables.scss' as v;
-// TODO: добавить большинство цветов в переменные?
 
 .card {
-  flex: 0 0 calc(25% - 20px);
+  flex: 0 1 220px;
   overflow: hidden;
   border: 1px solid v.$color-border;
   border-radius: 18px;
@@ -177,6 +176,12 @@
   &:hover {
     // transform: translateY(-4px);
     box-shadow: 0 16px 36px rgba(35, 51, 43, 0.12);
+  }
+}
+
+@media (min-width: v.$md) {
+  .card {
+    flex: 0 1 270px;
   }
 }
 
