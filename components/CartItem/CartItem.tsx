@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/store/store';
 import { decrementQuantity, incrementQuantity, removeFromCart } from '@/store/slices/cartSlice';
 import styles from './CartItem.module.scss';
 import { formatPrice } from '@/helpers/formatPrice';
+import ProductImage from '../ProductImage/ProductImage';
 
 interface CartItemProps {
   item: ICartItem;
@@ -19,16 +20,7 @@ export default function CartItem({ item }: CartItemProps) {
     <article className={styles.cartItem}>
       <div className={styles.cartItem__left}>
         <div className={styles.cartItem__imageWrapper}>
-          {product.preview_picture ? (
-            <img
-              className={styles.cartItem__image}
-              src={product.preview_picture}
-              // TODO: что-то отображать, если изображения по пути нету
-              alt=""
-            />
-          ) : (
-            <span className={styles.cartItem__imagePlaceholder}>Нет изображения</span>
-          )}
+          <ProductImage src={product.preview_picture} alt={product.name} width={110} height={110} />
         </div>
 
         <h2 className={styles.cartItem__title}>{product.name}</h2>

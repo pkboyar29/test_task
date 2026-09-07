@@ -1,11 +1,13 @@
 'use client';
 
+import { useMemo } from 'react';
 import { IProduct } from '@/types/IProduct';
 import styles from './ProductCard.module.scss';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { addFavorite, removeFavorite } from '@/store/slices/favoritesSlice';
 import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 import { formatPrice } from '@/helpers/formatPrice';
+import ProductImage from '../ProductImage/ProductImage';
 
 interface ProductCardProps {
   product: IProduct;
@@ -19,8 +21,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   const favorites = useAppSelector((state) => state.favorites.data);
   const cartItems = useAppSelector((state) => state.cart.data);
 
-  const isFavorite = favorites.some((favorite) => favorite.id === product.id);
-  const isInCart = cartItems.some(({ product: cartProduct }) => cartProduct.id === product.id);
+  const isFavorite = useMemo(
+    () => favorites.some((favorite) => favorite.id === product.id),
+    [favorites],
+  );
+  const isInCart = useMemo(
+    () => cartItems.some(({ product: cartProduct }) => cartProduct.id === product.id),
+    [cartItems],
+  );
 
   const handleFavoriteClick = () => {
     if (isFavorite) {
@@ -53,17 +61,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {isFavorite ? '♥' : '♡'}
         </button>
 
-        {/* TODO: использовать <Image /> */}
-        {product.preview_picture ? (
-          <img
-            className={styles.card__image}
-            src={product.preview_picture}
-            // TODO: что-то отображать, если изображения по пути нету
-            alt=""
-          />
-        ) : (
-          <div className={styles.card__imagePlaceholder}>Нет изображения</div>
-        )}
+        <ProductImage src={product.preview_picture} alt={product.name} width={270} height={270} />
       </div>
 
       <div className={styles.card__content}>
