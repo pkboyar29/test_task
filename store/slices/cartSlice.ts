@@ -26,13 +26,13 @@ const cartSlice = createSlice({
     incrementQuantity(state, action: PayloadAction<number>) {
       const item = state.data.find(({ product }) => product.id === action.payload);
       if (item) {
-        item.quantity += 1; // TODO: check
+        item.quantity += 1;
       }
     },
     decrementQuantity(state, action: PayloadAction<number>) {
       const item = state.data.find(({ product }) => product.id === action.payload);
       if (item && item.quantity > 1) {
-        item.quantity -= 1; // TODO: проверить два условия
+        item.quantity -= 1;
       }
     },
     removeFromCart(state, action: PayloadAction<number>) {

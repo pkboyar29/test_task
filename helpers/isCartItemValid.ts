@@ -10,6 +10,7 @@ export function isCartItemValid(value: unknown): value is ICartItem {
     'quantity' in value &&
     typeof value.quantity === 'number' &&
     Number.isInteger(value.quantity) &&
-    value.quantity > 0
+    value.quantity > 0 &&
+    value.quantity <= 10
   );
 }

@@ -5,17 +5,11 @@ import styles from './ProductCard.module.scss';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { addFavorite, removeFavorite } from '@/store/slices/favoritesSlice';
 import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
+import { formatPrice } from '@/helpers/formatPrice';
 
 interface ProductCardProps {
   product: IProduct;
 }
-
-// TODO: вынести в хелпер
-const priceFormatter = new Intl.NumberFormat('ru-RU', {
-  style: 'currency',
-  currency: 'RUB',
-  maximumFractionDigits: 0,
-});
 
 export default function ProductCard({ product }: ProductCardProps) {
   const labels = Object.entries(product.labels);
@@ -91,10 +85,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className={styles.card__footer}>
           <div className={styles.card__prices}>
             <strong className={styles.card__price}>
-              {priceFormatter.format(hasDiscount ? product.price_discount : product.price)}
+              {formatPrice(hasDiscount ? product.price_discount : product.price)}
             </strong>
             {hasDiscount ? (
-              <del className={styles.card__oldPrice}>{priceFormatter.format(product.price)}</del>
+              <del className={styles.card__oldPrice}>{formatPrice(product.price)}</del>
             ) : null}
           </div>
 

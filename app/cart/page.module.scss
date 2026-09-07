@@ -1,0 +1,114 @@
+@use '../../variables.scss' as v;
+
+.cartPage {
+  padding: 32px 10px 48px;
+  background: v.$color-background;
+
+  &__inner {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    margin-bottom: 24px;
+  }
+
+  &__eyebrow {
+    display: block;
+    margin-bottom: 8px;
+    color: v.$color-accent;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 8px;
+  }
+
+  &__items {
+    width: 100%;
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__summary {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    border: 1px solid v.$color-border;
+    border-radius: 16px;
+    background: #fff;
+    color: v.$color-black;
+  }
+
+  &__summaryLabel {
+    color: #737b75;
+    font-size: 13px;
+  }
+
+  &__total {
+    font-size: 28px;
+    line-height: 1.1;
+  }
+
+  &__checkout {
+    min-height: 46px;
+    margin-top: 12px;
+    border-radius: 9px;
+    background: v.$color-accent;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    transition:
+      background 150ms ease,
+      transform 150ms ease;
+
+    &:hover {
+      background: #c94d3e;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+@media (min-width: v.$md) {
+  .cartPage {
+    padding: 54px 20px 72px;
+
+    &__header {
+      margin-bottom: 30px;
+    }
+
+    &__container {
+      flex-direction: row;
+      gap: 12px;
+    }
+
+    &__summary {
+      width: auto;
+      flex: 0 0 250px;
+    }
+  }
+}
+
+@media (min-width: v.$lg) {
+  .cartPage {
+    &__container {
+      gap: 28px;
+    }
+
+    &__summary {
+      flex: 0 0 286px;
+    }
+  }
+}

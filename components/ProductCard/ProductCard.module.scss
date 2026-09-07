@@ -19,7 +19,7 @@
     justify-content: center;
     aspect-ratio: 1 / 0.9;
     padding: 28px;
-    background: #f4f1e9;
+    background: v.$color-ivory;
   }
 
   &__availability {
@@ -57,7 +57,7 @@
     &:hover,
     &--active {
       cursor: pointer;
-      background: #fff0ed;
+      background: v.$color-blush;
       color: v.$color-accent;
     }
   }

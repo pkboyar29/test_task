@@ -125,3 +125,11 @@ h6 {
     justify-content: start;
   }
 }
+
+.title {
+  margin-bottom: 28px;
+  color: v.$color-black;
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 700;
+  line-height: 1.1;
+}
