@@ -1,0 +1,35 @@
+@use '../variables.scss' as v;
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+
+  &__panel {
+    max-width: 520px;
+    padding: 16px 10px;
+    border: 1px solid v.$color-border;
+    border-radius: 18px;
+    background: #fff;
+    color: v.$color-black;
+    text-align: center;
+    box-shadow: 0 14px 40px rgba(35, 51, 43, 0.08);
+  }
+
+  &__text {
+    max-width: 360px;
+    margin: 0 auto 24px;
+    color: #737b75;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: v.$sm) {
+  .error {
+    &__panel {
+      padding: 40px 32px;
+    }
+  }
+}
