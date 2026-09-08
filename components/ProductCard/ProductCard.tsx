@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector, selectIsFavorite, selectIsInCart } from
 import { addFavorite, removeFavorite } from '@/store/slices/favoritesSlice';
 import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 import { formatPrice } from '@/helpers/formatPrice';
+import { getReviewWord } from '@/helpers/getReviewWord';
 import ProductImage from '../ProductImage/ProductImage';
 
 interface ProductCardProps {
@@ -72,23 +73,29 @@ export default function ProductCard({ product }: ProductCardProps) {
         <h2 className={styles.card__title}>{product.name}</h2>
 
         <div className={styles.card__footer}>
-          <div className={styles.card__prices}>
-            <strong className={styles.card__price}>
-              {formatPrice(hasDiscount ? product.price_discount : product.price)}
-            </strong>
-            {hasDiscount ? (
-              <del className={styles.card__oldPrice}>{formatPrice(product.price)}</del>
-            ) : null}
-          </div>
+          <span className={styles.card__reviews}>
+            {product.reviews} {getReviewWord(product.reviews)}
+          </span>
 
-          <button
-            className={`${styles.card__cart} ${isInCart ? styles['card__cart--active'] : ''}`}
-            type="button"
-            disabled={!product.available}
-            onClick={handleCartClick}
-          >
-            {isInCart ? 'В корзине' : 'В корзину'}
-          </button>
+          <div className={styles['card__footer--container']}>
+            <div className={styles.card__prices}>
+              <strong className={styles.card__price}>
+                {formatPrice(hasDiscount ? product.price_discount : product.price)}
+              </strong>
+              {hasDiscount ? (
+                <del className={styles.card__oldPrice}>{formatPrice(product.price)}</del>
+              ) : null}
+            </div>
+
+            <button
+              className={`${styles.card__cart} ${isInCart ? styles['card__cart--active'] : ''}`}
+              type="button"
+              disabled={!product.available}
+              onClick={handleCartClick}
+            >
+              {!product.available ? 'Нет в наличии' : isInCart ? 'В корзине' : 'В корзину'}
+            </button>
+          </div>
         </div>
       </div>
     </article>

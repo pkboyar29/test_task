@@ -2,6 +2,8 @@
 
 .card {
   flex: 0 1 220px;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   border: 1px solid v.$color-border;
   border-radius: 18px;
@@ -15,9 +17,10 @@
   &__visual {
     position: relative;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1 / 0.9;
+    height: 240px;
     padding: 28px;
     background: v.$color-ivory;
   }
@@ -63,18 +66,29 @@
   }
 
   &__title {
+    display: -webkit-box;
     min-height: 42px;
-    font-size: 17px;
+    overflow: hidden;
+    font-size: 16px;
     font-weight: 700;
     line-height: 1.25;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
 
   &__content {
     display: flex;
+    flex: 1;
     min-height: 196px;
     flex-direction: column;
     gap: 14px;
     padding: 18px;
+  }
+
+  &__reviews {
+    color: #7c837d;
+    font-size: 12px;
   }
 
   &__labels {
@@ -111,11 +125,15 @@
   }
 
   &__footer {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 12px;
     margin-top: auto;
+
+    &--container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 4px;
+    }
   }
 
   &__prices {
@@ -170,21 +188,5 @@
 @media (min-width: v.$md) {
   .card {
     flex: 0 1 270px;
-  }
-}
-
-// TODO: delete
-@media (max-width: 420px) {
-  .content {
-    min-height: 180px;
-  }
-
-  .footer {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .cartButton {
-    width: 100%;
   }
 }
