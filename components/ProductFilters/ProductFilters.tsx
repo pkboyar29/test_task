@@ -10,6 +10,7 @@ export interface ProductFilterValuesType {
   onlyAvailable: boolean;
   minPrice: string;
   maxPrice: string;
+  searchQuery: string;
 }
 
 interface ProductFiltersProps {
@@ -22,6 +23,7 @@ const initialFilters: ProductFilterValuesType = {
   onlyAvailable: false,
   minPrice: '',
   maxPrice: '',
+  searchQuery: '',
 };
 
 export default function ProductFilters({ categories, onApply }: ProductFiltersProps) {

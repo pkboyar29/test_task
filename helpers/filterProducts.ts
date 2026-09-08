@@ -1,5 +1,5 @@
 import { IProduct } from '@/types/IProduct';
-import { ProductFilterValuesType } from '../ProductFilters/ProductFilters';
+import { ProductFilterValuesType } from '../components/ProductFilters/ProductFilters';
 
 export function filterProducts(products: IProduct[], filter: ProductFilterValuesType): IProduct[] {
   return products.filter((product) => {
@@ -14,7 +14,16 @@ export function filterProducts(products: IProduct[], filter: ProductFilterValues
     const matchesAvailability = !filter.onlyAvailable ? true : product.available;
     const matchesMinPrice = !filter.minPrice ? true : product.price_discount >= minPrice;
     const matchesMaxPrice = !filter.maxPrice ? true : product.price_discount <= maxPrice;
+    const matchesSearchQuery = product.name
+      .toLowerCase()
+      .includes(filter.searchQuery.toLowerCase());
 
-    return matchesCategory && matchesAvailability && matchesMinPrice && matchesMaxPrice;
+    return (
+      matchesCategory &&
+      matchesAvailability &&
+      matchesMinPrice &&
+      matchesMaxPrice &&
+      matchesSearchQuery
+    );
   });
 }

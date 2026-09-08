@@ -125,6 +125,30 @@ h6 {
   justify-content: center;
 }
 
+.title {
+  margin-bottom: 28px;
+  color: v.$color-black;
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.catalog-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0 8px 24px;
+}
+
+@media (min-width: v.$md) {
+  .catalog-toolbar {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 24px;
+    margin-inline: 0;
+  }
+}
+
 @media (min-width: v.$lg) {
   .cards {
     gap: 20px;
@@ -136,12 +160,4 @@ h6 {
   .cards {
     justify-content: start;
   }
-}
-
-.title {
-  margin-bottom: 28px;
-  color: v.$color-black;
-  font-size: clamp(28px, 5vw, 36px);
-  font-weight: 700;
-  line-height: 1.1;
 }

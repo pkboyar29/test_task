@@ -9,9 +9,10 @@ import ProductFilters, {
   ProductFilterValuesType,
 } from '@/components/ProductFilters/ProductFilters';
 import ProductSort, { ProductSortValueType } from '@/components/ProductSort/ProductSort';
+import ProductSearch from '@/components/ProductSearch/ProductSearch';
 import { IProduct } from '@/types/IProduct';
-import { filterProducts } from './filterProducts';
-import { sortProducts } from './sortProducts';
+import { filterProducts } from '../../helpers/filterProducts';
+import { sortProducts } from '../../helpers/sortProducts';
 
 interface ProductCatalogProps {
   products: IProduct[];
@@ -28,6 +29,7 @@ export default function ProductCatalog({ products }: ProductCatalogProps) {
     onlyAvailable: false,
     minPrice: '',
     maxPrice: '',
+    searchQuery: '',
   });
   const [sort, setSort] = useState<ProductSortValueType>('default');
 
@@ -52,7 +54,14 @@ export default function ProductCatalog({ products }: ProductCatalogProps) {
   return (
     <>
       <ProductFilters categories={categories} onApply={setFilters} />
-      <ProductSort value={sort} onChange={setSort} />
+      <div className="catalog-toolbar">
+        <ProductSearch
+          onSearch={(newSearchQuery) => {
+            setFilters((prev) => ({ ...prev, searchQuery: newSearchQuery }));
+          }}
+        />
+        <ProductSort value={sort} onChange={setSort} />
+      </div>
 
       {!isMounted || !isStoreReady ? (
         <ProductCardSkeleton />

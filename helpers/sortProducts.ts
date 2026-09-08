@@ -1,5 +1,5 @@
 import { IProduct } from '@/types/IProduct';
-import { ProductSortValueType } from '../ProductSort/ProductSort';
+import { ProductSortValueType } from '../components/ProductSort/ProductSort';
 
 export function sortProducts(products: IProduct[], sortType: ProductSortValueType): IProduct[] {
   if (sortType === 'default') {
