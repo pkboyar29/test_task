@@ -14,7 +14,10 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <body>
         <StoreProvider>
           <Header />
-          {children}
+
+          <div className="page">
+            <main className="main">{children}</main>
+          </div>
         </StoreProvider>
       </body>
     </html>

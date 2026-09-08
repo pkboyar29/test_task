@@ -1,30 +1,36 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import ProductCard from '@/components/ProductCard/ProductCard';
+import ProductCardSkeleton from '@/components/ProductCard/ProductCardSkeleton';
 import EmptyState from '@/components/EmptyState/EmptyState';
 import { useAppSelector } from '@/store/store';
-import styles from './page.module.scss';
 
 export default function Favorites() {
   const { data: favorites, status } = useAppSelector((state) => state.favorites);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // TODO: temporary
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMounted(true);
+  }, []);
 
   return (
-    <main className={styles.favorites}>
-      <div className={styles.favorites__container}>
-        <h1 className="title">Избранное</h1>
+    <>
+      <h1 className="title">Избранное</h1>
 
-        {status === 'idle' ? (
-          <div>Loading...</div>
-        ) : favorites.length === 0 ? (
-          <EmptyState message="В избранном пока нет товаров." />
-        ) : (
-          <div className="cards">
-            {favorites.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
-      </div>
-    </main>
+      {!isMounted || status === 'idle' ? (
+        <ProductCardSkeleton count={4} />
+      ) : favorites.length === 0 ? (
+        <EmptyState message="В избранном пока нет товаров." />
+      ) : (
+        <div className="cards">
+          {favorites.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
+    </>
   );
 }

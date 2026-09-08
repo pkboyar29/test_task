@@ -105,6 +105,18 @@ h6 {
 }
 
 // global styles
+.page {
+  height: 100%;
+  padding: 0 8px;
+}
+
+.main {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 60px 0px 90px;
+}
+
 .cards {
   display: flex;
   flex-wrap: wrap;
