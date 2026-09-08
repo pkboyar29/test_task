@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import styles from './ProductFilters.module.scss';
+import Button from '../Button/Button';
 
 export interface ProductFilterValues {
   categories: string[];
@@ -108,9 +109,11 @@ export default function ProductFilters({ categories, onApply }: ProductFiltersPr
         </div>
       </fieldset>
 
-      <button className={styles.filters__submit} disabled={!isEditing} type="submit">
-        Применить изменения
-      </button>
+      <div className={styles.filters__submit}>
+        <Button disabled={!isEditing} type="submit">
+          Применить изменения
+        </Button>
+      </div>
     </form>
   );
 }

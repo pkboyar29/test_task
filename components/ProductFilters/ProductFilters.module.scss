@@ -67,27 +67,6 @@
       font: inherit;
     }
   }
-
-  &__submit {
-    min-height: 38px;
-    padding: 0 16px;
-    border-radius: 8px;
-    background: v.$color-black;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-    transition: background 150ms ease;
-
-    &:disabled {
-      cursor: not-allowed;
-      background: #c9ccc7;
-    }
-
-    &:hover:not(:disabled) {
-      background: v.$color-accent;
-    }
-  }
 }
 
 @media (min-width: v.$lg) {

@@ -152,33 +152,6 @@
     font-size: 12px;
   }
 
-  &__cart {
-    padding: 11px 14px;
-    border-radius: 10px;
-    background: v.$color-black;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    transition:
-      background 150ms ease,
-      transform 150ms ease;
-
-    &:hover:not(:disabled) {
-      cursor: pointer;
-      background: v.$color-accent;
-      transform: translateY(-1px);
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      background: #c9ccc7;
-    }
-
-    &--active {
-      background: #28714b;
-    }
-  }
-
   &:hover {
     // transform: translateY(-4px);
     box-shadow: 0 16px 36px rgba(35, 51, 43, 0.12);

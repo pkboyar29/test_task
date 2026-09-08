@@ -8,6 +8,7 @@ import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 import { formatPrice } from '@/helpers/formatPrice';
 import { getReviewWord } from '@/helpers/getReviewWord';
 import ProductImage from '../ProductImage/ProductImage';
+import Button from '../Button/Button';
 
 interface ProductCardProps {
   product: IProduct;
@@ -87,14 +88,14 @@ export default function ProductCard({ product }: ProductCardProps) {
               ) : null}
             </div>
 
-            <button
-              className={`${styles.card__cart} ${isInCart ? styles['card__cart--active'] : ''}`}
+            <Button
               type="button"
+              isActive={isInCart}
               disabled={!product.available}
-              onClick={handleCartClick}
+              clickHandler={handleCartClick}
             >
               {!product.available ? 'Нет в наличии' : isInCart ? 'В корзине' : 'В корзину'}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
