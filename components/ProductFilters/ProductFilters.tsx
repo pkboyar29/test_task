@@ -5,7 +5,7 @@ import type { FormEvent } from 'react';
 import styles from './ProductFilters.module.scss';
 import Button from '../Button/Button';
 
-export interface ProductFilterValues {
+export interface ProductFilterValuesType {
   categories: string[];
   onlyAvailable: boolean;
   minPrice: string;
@@ -14,10 +14,10 @@ export interface ProductFilterValues {
 
 interface ProductFiltersProps {
   categories: string[];
-  onApply: (filters: ProductFilterValues) => void;
+  onApply: (filters: ProductFilterValuesType) => void;
 }
 
-const initialFilters: ProductFilterValues = {
+const initialFilters: ProductFilterValuesType = {
   categories: [],
   onlyAvailable: false,
   minPrice: '',

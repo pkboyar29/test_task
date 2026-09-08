@@ -3,49 +3,47 @@
 import { useState, useMemo } from 'react';
 import ProductCard from '@/components/ProductCard/ProductCard';
 import EmptyState from '../EmptyState/EmptyState';
-import ProductFilters, { ProductFilterValues } from '@/components/ProductFilters/ProductFilters';
+import ProductFilters, {
+  ProductFilterValuesType,
+} from '@/components/ProductFilters/ProductFilters';
+import ProductSort, { ProductSortValueType } from '@/components/ProductSort/ProductSort';
 import { IProduct } from '@/types/IProduct';
+import { filterProducts } from './filterProducts';
+import { sortProducts } from './sortProducts';
 
 interface ProductCatalogProps {
   products: IProduct[];
 }
 
 export default function ProductCatalog({ products }: ProductCatalogProps) {
-  const [currentFilters, setCurrentFilters] = useState<ProductFilterValues>({
+  const [filters, setFilters] = useState<ProductFilterValuesType>({
     categories: [],
     onlyAvailable: false,
     minPrice: '',
     maxPrice: '',
   });
+  const [sort, setSort] = useState<ProductSortValueType>('default');
 
   const categories = useMemo(
     () => Array.from(new Set(products.flatMap((product) => Object.values(product.labels)))),
     [products],
   );
 
-  const filteredProducts = products.filter((product) => {
-    const productCategories = Object.values(product.labels);
-    const minPrice = Number(currentFilters.minPrice);
-    const maxPrice = Number(currentFilters.maxPrice);
+  const filteredProducts = useMemo(() => filterProducts(products, filters), [products, filters]);
 
-    const matchesCategory =
-      currentFilters.categories.length === 0
-        ? true
-        : currentFilters.categories.some((category) => productCategories.includes(category));
-    const matchesAvailability = !currentFilters.onlyAvailable ? true : product.available;
-    const matchesMinPrice = !currentFilters.minPrice ? true : product.price_discount >= minPrice;
-    const matchesMaxPrice = !currentFilters.maxPrice ? true : product.price_discount <= maxPrice;
-
-    return matchesCategory && matchesAvailability && matchesMinPrice && matchesMaxPrice;
-  });
+  const sortedProducts = useMemo(
+    () => sortProducts(filteredProducts, sort),
+    [filteredProducts, sort],
+  );
 
   return (
     <>
-      <ProductFilters categories={categories} onApply={setCurrentFilters} />
+      <ProductFilters categories={categories} onApply={setFilters} />
+      <ProductSort value={sort} onChange={setSort} />
 
-      {filteredProducts.length > 0 ? (
+      {sortedProducts.length > 0 ? (
         <div className="cards">
-          {filteredProducts.map((product) => (
+          {sortedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
