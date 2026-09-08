@@ -1,0 +1,19 @@
+@use '../../../variables.scss' as v;
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  color: #737b75;
+  font-size: 13px;
+
+  a {
+    color: v.$color-accent;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { ICartItem } from '@/types/ICartItem';
 import { useAppDispatch } from '@/store/store';
 import { decrementQuantity, incrementQuantity, removeFromCart } from '@/store/slices/cartSlice';
@@ -20,10 +21,19 @@ export default function CartItem({ item }: CartItemProps) {
     <article className={styles.cartItem}>
       <div className={styles.cartItem__left}>
         <div className={styles.cartItem__imageWrapper}>
-          <ProductImage src={product.preview_picture} alt={product.name} width={110} height={110} />
+          <Link href={`products/${product.id}`}>
+            <ProductImage
+              src={product.preview_picture}
+              alt={product.name}
+              width={110}
+              height={110}
+            />
+          </Link>
         </div>
 
-        <h2 className={styles.cartItem__title}>{product.name}</h2>
+        <Link className={styles.cartItem__titleLink} href={`products/${product.id}`}>
+          <h2 className={styles.cartItem__title}>{product.name}</h2>
+        </Link>
       </div>
 
       <div className={styles.cartItem__right}>

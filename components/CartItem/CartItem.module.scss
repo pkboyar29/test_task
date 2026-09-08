@@ -50,6 +50,14 @@
     overflow: hidden;
   }
 
+  &__titleLink {
+    color: inherit;
+
+    &:hover {
+      color: v.$color-accent;
+    }
+  }
+
   &__right {
     display: flex;
     gap: 12px;
