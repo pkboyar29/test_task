@@ -1,9 +1,8 @@
 'use client';
 
-import { useMemo } from 'react';
 import { IProduct } from '@/types/IProduct';
 import styles from './ProductCard.module.scss';
-import { useAppDispatch, useAppSelector } from '@/store/store';
+import { useAppDispatch, useAppSelector, selectIsFavorite, selectIsInCart } from '@/store/store';
 import { addFavorite, removeFavorite } from '@/store/slices/favoritesSlice';
 import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 import { formatPrice } from '@/helpers/formatPrice';
@@ -18,17 +17,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   const hasDiscount = product.price_discount > 0 && product.price_discount < product.price;
 
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector((state) => state.favorites.data);
-  const cartItems = useAppSelector((state) => state.cart.data);
 
-  const isFavorite = useMemo(
-    () => favorites.some((favorite) => favorite.id === product.id),
-    [favorites],
-  );
-  const isInCart = useMemo(
-    () => cartItems.some(({ product: cartProduct }) => cartProduct.id === product.id),
-    [cartItems],
-  );
+  const isFavorite = useAppSelector((state) => selectIsFavorite(state, product.id));
+  const isInCart = useAppSelector((state) => selectIsInCart(state, product.id));
 
   const handleFavoriteClick = () => {
     if (isFavorite) {

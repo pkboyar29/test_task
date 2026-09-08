@@ -16,10 +16,10 @@ export default function Cart() {
   return (
     <main className={styles.cartPage}>
       <div className={styles.cartPage__inner}>
-        <header className={styles.cartPage__header}>
+        <div className={styles.cartPage__header}>
           <span className={styles.cartPage__eyebrow}>Ваш выбор</span>
           <h1 className="title">Корзина</h1>
-        </header>
+        </div>
 
         {status === 'idle' ? (
           <p>Loading...</p>
