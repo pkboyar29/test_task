@@ -1,10 +1,10 @@
 'use client';
 
-import CartItem from '@/components/CartItem/CartItem';
-import EmptyState from '@/components/EmptyState/EmptyState';
+import CartItem from '@/components/entities/Cart/CartItem/CartItem';
+import EmptyState from '@/components/common/EmptyState/EmptyState';
 import { useAppSelector } from '@/store/store';
 import styles from './page.module.scss';
-import { formatPrice } from '@/helpers/formatPrice';
+import { formatPrice } from '@/lib/formatPrice';
 
 export default function Cart() {
   const { data: cartItems, status } = useAppSelector((state) => state.cart);

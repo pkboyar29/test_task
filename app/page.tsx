@@ -1,4 +1,4 @@
-import ProductCatalog from '@/components/ProductCatalog/ProductCatalog';
+import ProductCatalog from '@/components/entities/Product/ProductCatalog/ProductCatalog';
 import { fetchProducts } from '@/api/products';
 
 export default async function Home() {

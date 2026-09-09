@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import '../globals.scss';
 import StoreProvider from '@/components/StoreProvider';
-import Header from '@/components/Header/Header';
+import Header from '@/components/common/Header/Header';
 
 export const metadata: Metadata = {
   title: 'Каталог товаров',

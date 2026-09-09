@@ -1,8 +1,8 @@
 'use client';
 
-import ProductCard from '@/components/ProductCard/ProductCard';
-import ProductCardSkeleton from '@/components/ProductCard/ProductCardSkeleton';
-import EmptyState from '@/components/EmptyState/EmptyState';
+import ProductCard from '@/components/entities/Product/ProductCard/ProductCard';
+import ProductCardSkeleton from '@/components/entities/Product/ProductCard/ProductCardSkeleton';
+import EmptyState from '@/components/common/EmptyState/EmptyState';
 import { useAppSelector } from '@/store/store';
 
 export default function Favorites() {

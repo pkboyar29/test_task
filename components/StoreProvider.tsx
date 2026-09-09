@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { setFavorites, setFavoritesReady } from '@/store/slices/favoritesSlice';
 import { setCartItems, setCartReady } from '@/store/slices/cartSlice';
 import { store, useAppDispatch, useAppSelector } from '@/store/store';
-import { isProductValid } from '@/helpers/isProductValid';
-import { isCartItemValid } from '@/helpers/isCartItemValid';
-import { readArrayFromLS } from '@/helpers/readArrayFromLS';
+import { isProductValid } from '@/lib/isProductValid';
+import { isCartItemValid } from '@/lib/isCartItemValid';
+import { readArrayFromLS } from '@/lib/readArrayFromLS';
 import { ICartItem } from '@/types/ICartItem';
 import { IProduct } from '@/types/IProduct';
 

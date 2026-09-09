@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import ProductDetails from '@/components/ProductDetails/ProductDetails';
+import ProductDetails from '@/components/entities/Product/ProductDetails/ProductDetails';
 import { fetchProducts } from '@/api/products';
 import styles from './page.module.scss';
 

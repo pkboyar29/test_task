@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './error.module.scss';
-import Button from '@/components/Button/Button';
+import Button from '@/components/common/Button/Button';
 
 export default function Error({
   error,

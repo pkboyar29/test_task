@@ -1,0 +1,103 @@
+@use '../../../variables.scss' as v;
+
+.header {
+  background: #fff;
+  border-bottom: 1px solid v.$color-border;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1180px;
+    min-height: 68px;
+    padding: 0 16px;
+    margin: 0 auto;
+  }
+
+  &__logo {
+    color: v.$color-black;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+    transition: opacity 150ms ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid v.$color-border;
+    box-shadow: 0 12px 24px rgb(30 41 37 / 8%);
+  }
+
+  &__navOpen {
+    display: block;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  &__burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3.5px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid v.$color-border;
+    border-radius: 50%;
+
+    span {
+      width: 17px;
+      height: 2px;
+      flex-shrink: 0;
+      background: v.$color-black;
+    }
+  }
+}
+
+@media (min-width: v.$md) {
+  .header {
+    &__inner {
+      min-height: 82px;
+      padding: 0 20px;
+    }
+
+    &__burger {
+      display: none;
+    }
+
+    &__nav,
+    &__navOpen {
+      display: flex;
+      position: static;
+      padding: 0;
+      border: 0;
+      box-shadow: none;
+    }
+
+    &__list {
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+  }
+}
