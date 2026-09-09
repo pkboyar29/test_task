@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useAppSelector } from '@/store/store';
 import ProductCard from '@/components/ProductCard/ProductCard';
 import ProductCardSkeleton from '@/components/ProductCard/ProductCardSkeleton';
@@ -19,7 +19,6 @@ interface ProductCatalogProps {
 }
 
 export default function ProductCatalog({ products }: ProductCatalogProps) {
-  const [isMounted, setIsMounted] = useState(false);
   const favoritesStatus = useAppSelector((state) => state.favorites.status);
   const cartStatus = useAppSelector((state) => state.cart.status);
   const isStoreReady = favoritesStatus === 'ready' && cartStatus === 'ready';
@@ -32,12 +31,6 @@ export default function ProductCatalog({ products }: ProductCatalogProps) {
     searchQuery: '',
   });
   const [sort, setSort] = useState<ProductSortValueType>('default');
-
-  useEffect(() => {
-    // TODO: temporary
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsMounted(true);
-  }, []);
 
   const categories = useMemo(
     () => Array.from(new Set(products.flatMap((product) => Object.values(product.labels)))),
@@ -63,7 +56,7 @@ export default function ProductCatalog({ products }: ProductCatalogProps) {
         <ProductSort value={sort} onChange={setSort} />
       </div>
 
-      {!isMounted || !isStoreReady ? (
+      {!isStoreReady ? (
         <ProductCardSkeleton />
       ) : sortedProducts.length > 0 ? (
         <div className="cards">

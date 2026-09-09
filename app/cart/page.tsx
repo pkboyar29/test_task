@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import CartItem from '@/components/CartItem/CartItem';
 import EmptyState from '@/components/EmptyState/EmptyState';
 import { useAppSelector } from '@/store/store';
@@ -8,20 +7,12 @@ import styles from './page.module.scss';
 import { formatPrice } from '@/helpers/formatPrice';
 
 export default function Cart() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  const { data: cartItems } = useAppSelector((state) => state.cart);
+  const { data: cartItems, status } = useAppSelector((state) => state.cart);
 
   const totalPrice = cartItems.reduce(
     (total, { product, quantity }) => total + (product.price_discount || product.price) * quantity,
     0,
   );
-
-  useEffect(() => {
-    // TODO: temporary
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsMounted(true);
-  }, []);
 
   return (
     <div className={styles.cartPage__inner}>
@@ -30,7 +21,7 @@ export default function Cart() {
         <h1 className="title">Корзина</h1>
       </div>
 
-      {!isMounted ? null : cartItems.length === 0 ? (
+      {status === 'idle' ? null : cartItems.length === 0 ? (
         <EmptyState message="В корзине пока ничего нет." />
       ) : (
         <div className={styles.cartPage__container}>

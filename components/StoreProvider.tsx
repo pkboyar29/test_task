@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useEffect } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { setFavorites, setFavoritesReady } from '@/store/slices/favoritesSlice';
 import { setCartItems, setCartReady } from '@/store/slices/cartSlice';
@@ -15,7 +15,13 @@ function FavoritesPersistence() {
   const dispatch = useAppDispatch();
   const { data: favorites, status } = useAppSelector((state) => state.favorites);
 
+  const isHydrated = useHydrated();
+
   useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
+
     try {
       const favoritesLS = localStorage.getItem(FAVORITES_LS_KEY);
       if (favoritesLS) {
@@ -30,7 +36,7 @@ function FavoritesPersistence() {
     } finally {
       dispatch(setFavoritesReady());
     }
-  }, [dispatch]);
+  }, [dispatch, isHydrated]);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -47,7 +53,13 @@ function CartPersistence() {
   const dispatch = useAppDispatch();
   const { data: cartItems, status } = useAppSelector((state) => state.cart);
 
+  const isHydrated = useHydrated();
+
   useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
+
     try {
       const cartLS = localStorage.getItem(CART_LS_KEY);
       if (cartLS) {
@@ -62,7 +74,7 @@ function CartPersistence() {
     } finally {
       dispatch(setCartReady());
     }
-  }, [dispatch]);
+  }, [dispatch, isHydrated]);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -75,12 +87,26 @@ function CartPersistence() {
   return null;
 }
 
+const HydrationContext = createContext(false);
+export function useHydrated() {
+  return useContext(HydrationContext);
+}
+
 export default function StoreProvider({ children }: { children: ReactNode }) {
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsHydrated(true);
+  }, []);
+
   return (
     <Provider store={store}>
-      <FavoritesPersistence />
-      <CartPersistence />
-      {children}
+      <HydrationContext.Provider value={isHydrated}>
+        <FavoritesPersistence />
+        <CartPersistence />
+        {children}
+      </HydrationContext.Provider>
     </Provider>
   );
 }

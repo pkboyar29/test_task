@@ -4,7 +4,6 @@ import { IProduct } from '@/types/IProduct';
 import { useAppDispatch, useAppSelector, selectIsFavorite, selectIsInCart } from '@/store/store';
 import { addFavorite, removeFavorite } from '@/store/slices/favoritesSlice';
 import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
-import { useState, useEffect } from 'react';
 import { formatPrice } from '@/helpers/formatPrice';
 import { getReviewWord } from '@/helpers/getReviewWord';
 import ProductImage from '../ProductImage/ProductImage';
@@ -19,16 +18,8 @@ interface ProductDetailsProps {
 export default function ProductDetails({ product }: ProductDetailsProps) {
   const dispatch = useAppDispatch();
 
-  const [isMounted, setIsMounted] = useState(false);
-
   const isFavorite = useAppSelector((state) => selectIsFavorite(state, product.id));
   const isInCart = useAppSelector((state) => selectIsInCart(state, product.id));
-
-  useEffect(() => {
-    // TODO: temporary
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsMounted(true);
-  }, []);
 
   const labels = Object.values(product.labels);
 
@@ -39,10 +30,6 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const handleCartClick = () => {
     dispatch(isInCart ? removeFromCart(product.id) : addToCart(product));
   };
-
-  if (!isMounted) {
-    return <></>;
-  }
 
   return (
     <article className={styles.details}>
