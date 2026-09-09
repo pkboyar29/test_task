@@ -7,6 +7,9 @@ import { setCartItems, setCartReady } from '@/store/slices/cartSlice';
 import { store, useAppDispatch, useAppSelector } from '@/store/store';
 import { isProductValid } from '@/helpers/isProductValid';
 import { isCartItemValid } from '@/helpers/isCartItemValid';
+import { readArrayFromLS } from '@/helpers/readArrayFromLS';
+import { ICartItem } from '@/types/ICartItem';
+import { IProduct } from '@/types/IProduct';
 
 const FAVORITES_LS_KEY = 'favorites';
 const CART_LS_KEY = 'cart';
@@ -22,20 +25,9 @@ function FavoritesPersistence() {
       return;
     }
 
-    try {
-      const favoritesLS = localStorage.getItem(FAVORITES_LS_KEY);
-      if (favoritesLS) {
-        const parsedFavorites: unknown = JSON.parse(favoritesLS);
-
-        if (Array.isArray(parsedFavorites)) {
-          dispatch(setFavorites(parsedFavorites.filter(isProductValid)));
-        }
-      }
-    } catch {
-      localStorage.setItem(FAVORITES_LS_KEY, JSON.stringify([]));
-    } finally {
-      dispatch(setFavoritesReady());
-    }
+    const favoritesFromLS = readArrayFromLS<IProduct>(FAVORITES_LS_KEY, isProductValid);
+    dispatch(setFavorites(favoritesFromLS));
+    dispatch(setFavoritesReady());
   }, [dispatch, isHydrated]);
 
   useEffect(() => {
@@ -60,20 +52,9 @@ function CartPersistence() {
       return;
     }
 
-    try {
-      const cartLS = localStorage.getItem(CART_LS_KEY);
-      if (cartLS) {
-        const parsedCart: unknown = JSON.parse(cartLS);
-
-        if (Array.isArray(parsedCart)) {
-          dispatch(setCartItems(parsedCart.filter(isCartItemValid)));
-        }
-      }
-    } catch {
-      localStorage.setItem(CART_LS_KEY, JSON.stringify([]));
-    } finally {
-      dispatch(setCartReady());
-    }
+    const cartFromLS = readArrayFromLS<ICartItem>(CART_LS_KEY, isCartItemValid);
+    dispatch(setCartItems(cartFromLS));
+    dispatch(setCartReady());
   }, [dispatch, isHydrated]);
 
   useEffect(() => {

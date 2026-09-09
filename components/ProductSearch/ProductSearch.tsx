@@ -16,7 +16,7 @@ export default function ProductSearch({ onSearch }: ProductSearchProps) {
     }, 500);
 
     return () => clearTimeout(timeoutId);
-  }, [searchQuery]);
+  }, [onSearch, searchQuery]);
 
   return (
     <label className={styles.search} htmlFor="product-search">
