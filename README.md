@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[Демо версия](https://test-task-one-puce.vercel.app/)
 
-## Getting Started
+Какие технологические решения приняты:
 
-First, run the development server:
+- для стилей использовал SCSS вместо CSS modules, потому что 1)с scss и его преимуществами знаком, 2)scss позволяет использовать переменные (вынес в переменные часто используемые цвета и брейкпоинты), также удобен при использовании методологии БЭМ благодаря вложенности
+- для проверки того, находится ли товар в избранном или корзине, были использованы мемоизированные селекторы `createSelector`. Благодаря этому значение не пересчитывается при каждом ре-рендере, если массивы `favorites` и `cartItems` не изменились. Также потому что эти вычисления используются в разных местах (каталог, страница избранного, страница конкретного товара), т.е. нам нужна мемоизация на уровне redux
+- `useMemo` применен для мемоизации вычисления всех возможных категорий в каталоге, чтобы при изменении фильтра/варианта сортировки/состояния redux или чего-то еще не пересчитывалось это значение. Использовать `useMemo` для filteredProducts и sortedProducts уже не используется, так как эти значения напрямую зависят от выбранных фильтров/сортировки/redux состояния, и при их изменении они в любом случае будут пересчитываться (т.е. в данном случае польза от мемоизации ограничена)
+- динамические импорты нигде не используются, так как все импортируемые компоненты используются на страницах сразу после загрузки и имеют небольшой размер
+-
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Что не успел:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- пагинация или infinite scroll
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Что можно улучшить технологически:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- написать интеграционные тесты
+- написать юнит тесты для filterProducts, sortProducts и других хелперов
 
-## Learn More
+Что можно улучшить визуально:
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- отправлять тосты уведомления при добавлении товара в корзину/избранное
+-

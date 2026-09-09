@@ -37,12 +37,8 @@ export default function ProductCatalog({ products }: ProductCatalogProps) {
     [products],
   );
 
-  const filteredProducts = useMemo(() => filterProducts(products, filters), [products, filters]);
-
-  const sortedProducts = useMemo(
-    () => sortProducts(filteredProducts, sort),
-    [filteredProducts, sort],
-  );
+  const filteredProducts = filterProducts(products, filters);
+  const sortedProducts = sortProducts(filteredProducts, sort);
 
   return (
     <>
