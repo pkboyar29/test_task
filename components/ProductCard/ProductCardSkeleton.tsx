@@ -10,7 +10,7 @@ export default function ProductCardSkeleton({ count = 6 }: ProductCardSkeletonPr
   return (
     <div className="cards" aria-busy="true" aria-label="Загрузка товаров">
       {Array.from({ length: count }, (_, index) => (
-        <article className={styles.card} aria-hidden="true" key={index}>
+        <article className={styles.card} key={index}>
           <div className={styles.card__visual}>
             <span className={styles.card__visualShape} />
           </div>

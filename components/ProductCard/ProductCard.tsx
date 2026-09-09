@@ -18,7 +18,6 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const labels = Object.entries(product.labels);
-  const hasDiscount = product.price_discount > 0 && product.price_discount < product.price;
 
   const dispatch = useAppDispatch();
 
@@ -75,10 +74,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           <div className={styles['card__footer--container']}>
             <div className={styles.card__prices}>
-              <strong className={styles.card__price}>
-                {formatPrice(hasDiscount ? product.price_discount : product.price)}
-              </strong>
-              {hasDiscount ? (
+              <strong className={styles.card__price}>{formatPrice(product.price_discount)}</strong>
+              {product.price_discount ? (
                 <del className={styles.card__oldPrice}>{formatPrice(product.price)}</del>
               ) : null}
             </div>
