@@ -5,6 +5,7 @@ import { useAppSelector } from '@/store/store';
 import ProductCard from '@/components/entities/Product/ProductCard/ProductCard';
 import ProductCardSkeleton from '@/components/entities/Product/ProductCard/ProductCardSkeleton';
 import EmptyState from '../../../common/EmptyState/EmptyState';
+import Pagination from '@/components/common/Pagination/Pagination';
 import ProductFilters, {
   ProductFilterValuesType,
 } from '@/components/entities/Product/ProductFilters/ProductFilters';
@@ -18,9 +19,17 @@ import { sortProducts } from '../../../../lib/sortProducts';
 
 interface ProductCatalogProps {
   products: IProduct[];
+  itemsCount: number;
+  pageCount: number;
+  currentPage: number;
 }
 
-export default function ProductCatalog({ products }: ProductCatalogProps) {
+export default function ProductCatalog({
+  products,
+  itemsCount,
+  pageCount,
+  currentPage,
+}: ProductCatalogProps) {
   const favoritesStatus = useAppSelector((state) => state.favorites.status);
   const cartStatus = useAppSelector((state) => state.cart.status);
   const isStoreReady = favoritesStatus === 'ready' && cartStatus === 'ready';
@@ -65,6 +74,8 @@ export default function ProductCatalog({ products }: ProductCatalogProps) {
       ) : (
         <EmptyState message="По выбранным фильтрам товары не найдены." />
       )}
+
+      <Pagination itemsCount={itemsCount} pageCount={pageCount} currentPage={currentPage} />
     </>
   );
 }

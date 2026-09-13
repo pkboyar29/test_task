@@ -12,8 +12,8 @@ interface ProductPageProps {
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { id } = await params;
   const productId = Number(id);
-  const products = await fetchProducts();
-  const product = products.find((item) => item.id === productId);
+  const { items } = await fetchProducts();
+  const product = items.find((item) => item.id === productId);
 
   if (!Number.isInteger(productId) || !product) {
     return {
@@ -40,8 +40,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
   const productId = Number(id);
 
-  const products = await fetchProducts();
-  const product = products.find((item) => item.id === productId);
+  const { items } = await fetchProducts();
+  const product = items.find((item) => item.id === productId);
 
   if (!Number.isInteger(productId) || !product) {
     notFound();
