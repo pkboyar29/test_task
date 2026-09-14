@@ -39,8 +39,8 @@ export default function ProductCatalog({
     onlyAvailable: false,
     minPrice: '',
     maxPrice: '',
-    searchQuery: '',
   });
+  const [searchQuery, setSearchQuery] = useState('');
   const [sort, setSort] = useState<ProductSortValueType>('default');
 
   const categories = useMemo(
@@ -48,18 +48,15 @@ export default function ProductCatalog({
     [products],
   );
 
-  const filteredProducts = filterProducts(products, filters);
+  const filteredProducts = filterProducts(products, filters, searchQuery);
   const sortedProducts = sortProducts(filteredProducts, sort);
 
   return (
     <>
       <ProductFilters categories={categories} onApply={setFilters} />
       <div className="catalog-toolbar">
-        <ProductSearch
-          onSearch={(newSearchQuery) => {
-            setFilters((prev) => ({ ...prev, searchQuery: newSearchQuery }));
-          }}
-        />
+        <ProductSearch onSearch={setSearchQuery} />
+
         <ProductSort value={sort} onChange={setSort} />
       </div>
 

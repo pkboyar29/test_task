@@ -10,7 +10,6 @@ export interface ProductFilterValuesType {
   onlyAvailable: boolean;
   minPrice: string;
   maxPrice: string;
-  searchQuery: string;
 }
 
 interface ProductFiltersProps {
@@ -18,20 +17,19 @@ interface ProductFiltersProps {
   onApply: (filters: ProductFilterValuesType) => void;
 }
 
-const initialFilters: ProductFilterValuesType = {
+const initialDraftFilters: ProductFilterValuesType = {
   categories: [],
   onlyAvailable: false,
   minPrice: '',
   maxPrice: '',
-  searchQuery: '',
 };
 
 export default function ProductFilters({ categories, onApply }: ProductFiltersProps) {
-  const [filters, setFilters] = useState(initialFilters);
+  const [draftFilters, setDraftFilters] = useState(initialDraftFilters);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const handleCategoryChange = (category: string) => {
-    setFilters((prev) => ({
+    setDraftFilters((prev) => ({
       ...prev,
       categories: prev.categories.includes(category)
         ? prev.categories.filter((item) => item !== category)
@@ -42,7 +40,7 @@ export default function ProductFilters({ categories, onApply }: ProductFiltersPr
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsEditing(false);
-    onApply(filters);
+    onApply(draftFilters);
   };
 
   return (
@@ -54,7 +52,7 @@ export default function ProductFilters({ categories, onApply }: ProductFiltersPr
             <label key={category} className={styles.filters__option}>
               <input
                 type="checkbox"
-                checked={filters.categories.includes(category)}
+                checked={draftFilters.categories.includes(category)}
                 onChange={() => {
                   setIsEditing(true);
                   handleCategoryChange(category);
@@ -71,10 +69,10 @@ export default function ProductFilters({ categories, onApply }: ProductFiltersPr
         <label className={styles.filters__option}>
           <input
             type="checkbox"
-            checked={filters.onlyAvailable}
+            checked={draftFilters.onlyAvailable}
             onChange={(event) => {
               setIsEditing(true);
-              setFilters((current) => ({ ...current, onlyAvailable: event.target.checked }));
+              setDraftFilters((current) => ({ ...current, onlyAvailable: event.target.checked }));
             }}
           />
           <span>Только в наличии</span>
@@ -89,10 +87,10 @@ export default function ProductFilters({ categories, onApply }: ProductFiltersPr
             <input
               type="number"
               min="0"
-              value={filters.minPrice}
+              value={draftFilters.minPrice}
               onChange={(event) => {
                 setIsEditing(true);
-                setFilters((current) => ({ ...current, minPrice: event.target.value }));
+                setDraftFilters((current) => ({ ...current, minPrice: event.target.value }));
               }}
             />
           </label>
@@ -101,10 +99,10 @@ export default function ProductFilters({ categories, onApply }: ProductFiltersPr
             <input
               type="number"
               min="0"
-              value={filters.maxPrice}
+              value={draftFilters.maxPrice}
               onChange={(event) => {
                 setIsEditing(true);
-                setFilters((current) => ({ ...current, maxPrice: event.target.value }));
+                setDraftFilters((current) => ({ ...current, maxPrice: event.target.value }));
               }}
             />
           </label>

@@ -10,7 +10,7 @@ export default function Cart() {
   const { data: cartItems, status } = useAppSelector((state) => state.cart);
 
   const totalPrice = cartItems.reduce(
-    (total, { product, quantity }) => total + (product.price_discount || product.price) * quantity,
+    (total, { product, quantity }) => total + product.price_discount * quantity,
     0,
   );
 

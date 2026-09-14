@@ -1,7 +1,11 @@
 import { IProduct } from '@/types/IProduct';
 import { ProductFilterValuesType } from '@/components/entities/Product/ProductFilters/ProductFilters';
 
-export function filterProducts(products: IProduct[], filter: ProductFilterValuesType): IProduct[] {
+export function filterProducts(
+  products: IProduct[],
+  filter: ProductFilterValuesType,
+  searchQuery: string,
+): IProduct[] {
   return products.filter((product) => {
     const productCategories = Object.values(product.labels);
     const minPrice = Number(filter.minPrice);
@@ -14,9 +18,7 @@ export function filterProducts(products: IProduct[], filter: ProductFilterValues
     const matchesAvailability = !filter.onlyAvailable ? true : product.available;
     const matchesMinPrice = !filter.minPrice ? true : product.price_discount >= minPrice;
     const matchesMaxPrice = !filter.maxPrice ? true : product.price_discount <= maxPrice;
-    const matchesSearchQuery = product.name
-      .toLowerCase()
-      .includes(filter.searchQuery.toLowerCase());
+    const matchesSearchQuery = product.name.toLowerCase().includes(searchQuery.toLowerCase());
 
     return (
       matchesCategory &&

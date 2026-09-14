@@ -4,7 +4,7 @@ import { IProduct } from '@/types/IProduct';
 const PRODUCT_API_URL = 'https://maxifoxy-testfront-96b4.twc1.net/api/products';
 
 export async function fetchProducts(): Promise<{ items: IProduct[]; itemsCount: number }> {
-  const res = await fetch(PRODUCT_API_URL);
+  const res = await fetch(PRODUCT_API_URL, { next: { revalidate: 40 } }); // либо можно использовать {cache: 'force-cache'}
 
   if (!res.ok) {
     throw new Error('Failed to fetch products');

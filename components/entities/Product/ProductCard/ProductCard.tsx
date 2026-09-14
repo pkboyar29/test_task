@@ -75,9 +75,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className={styles['card__footer--container']}>
             <div className={styles.card__prices}>
               <strong className={styles.card__price}>{formatPrice(product.price_discount)}</strong>
-              {product.price_discount ? (
-                <del className={styles.card__oldPrice}>{formatPrice(product.price)}</del>
-              ) : null}
+              <del className={styles.card__oldPrice}>{formatPrice(product.price)}</del>
             </div>
 
             <Button
